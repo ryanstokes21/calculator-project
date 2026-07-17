@@ -18,21 +18,20 @@ function divide(num1, num2) {
   return num1 / num2;
 }
 
-function operate(operand1, operand2, operator) {
+function operate(operator, operand1, operand2) {
   switch (operator) {
     case '+':
-      add(operand1, operand2);
-      break;
+      return add(operand1, operand2);
+
     case '-':
-      subtract(operand1, operand2);
-      break;
+      return subtract(operand1, operand2);
+
     case 'x':
-      multiply(operand1, operand2);
-      break;
+      return multiply(operand1, operand2);
+
     case '÷':
-      multiply(operand1, operand2);
-      break;
+      return multiply(operand1, operand2);
     default:
-      return NaN;
+      return;
   }
 }
