@@ -1,5 +1,3 @@
-# calculator-project
-
 # Calculator
 
 A simple calculator application built with HTML, CSS, and JavaScript. This project allows users to perform basic arithmetic operations with a clean and responsive interface.
