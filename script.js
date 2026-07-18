@@ -18,6 +18,9 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
+  if (num2 === 0) {
+    return undefined;
+  }
   return num1 / num2;
 }
 
@@ -49,6 +52,9 @@ function handleEquals() {
 }
 
 function handleOperand(value) {
+  if (operand1 === undefined) {
+    operand1 = '';
+  }
   if (!operator) {
     operand1 += value;
   } else {
