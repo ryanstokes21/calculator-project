@@ -40,43 +40,55 @@ function displayOperation() {
   display.textContent = `${operand1} ${operator} ${operand2}`;
 }
 
+function handleEquals() {
+  if (!operand1 || !operand2 || !operator) return;
+  operand1 = operate(operator, Number(operand1), Number(operand2));
+  operator = '';
+  operand2 = '';
+  displayOperation();
+}
+
+function handleOperand(value) {
+  if (!operator) {
+    operand1 += value;
+  } else {
+    operand2 += value;
+  }
+}
+
+function handleOperator(value) {
+  if (!operand1) return;
+  if (operator && operand2) {
+    operand1 = operate(operator, Number(operand1), Number(operand2));
+    operand2 = '';
+  }
+
+  operator = value;
+}
+
+function handleClear() {
+  operand1 = '';
+  operator = '';
+  operand2 = '';
+}
+
 keypad.addEventListener('click', (e) => {
   const button = e.target.closest('button');
   const value = e.target.dataset.value;
   if (!button) return;
 
   if (value === '=') {
-    if (!operand1 || !operand2 || !operator) return;
-    operand1 = operate(operator, Number(operand1), Number(operand2));
-    operator = '';
-    operand2 = '';
-    displayOperation();
+    handleEquals();
+  } else if (button.classList.contains('operand')) {
+    handleOperand(value);
+  } else if (
+    button.classList.contains('operator') &&
+    button.dataset.value !== '='
+  ) {
+    handleOperator(value);
+  } else if (button.classList.contains('clear')) {
+    handleClear();
   }
 
-  if (button.classList.contains('operand')) {
-    const num = value;
-    if (!operator) {
-      operand1 += num;
-    } else {
-      operand2 += num;
-    }
-    displayOperation();
-  }
-
-  if (button.classList.contains('operator') && button.dataset.value !== '=') {
-    if (operator) {
-      operand1 = operate(operator, Number(operand1), Number(operand2));
-      operand2 = '';
-    }
-
-    operator = value;
-    displayOperation();
-  }
-
-  if (button.classList.contains('clear')) {
-    operand1 = '';
-    operator = '';
-    operand2 = '';
-    displayOperation();
-  }
+  displayOperation();
 });
